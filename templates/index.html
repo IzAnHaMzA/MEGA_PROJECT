@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Habit-X Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            width: 60%;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .suggestion {
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>App Usage Summary & Suggestions</h1>
+        
+        <!-- Display Pie Chart -->
+        <img src="{{ chart_path }}" alt="App Usage Chart">
+
+        <ul>
+            {% for app, time in summary.items() %}
+            <li>
+                <strong>{{ app }}:</strong> {{ time }} mins
+                <p class="suggestion">{{ suggestions[app] }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+<h2>Predict Usage Time</h2>
+<form action="/predict" method="POST">
+    <label for="day_of_week">Day of Week (0=Mon, 6=Sun):</label>
+    <input type="number" id="day_of_week" name="day_of_week" required>
+    <br>
+    <label for="launch_count">Launch Count:</label>
+    <input type="number" id="launch_count" name="launch_count" required>
+    <br>
+    <button type="submit">Predict</button>
+</form>
